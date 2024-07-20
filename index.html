@@ -12,7 +12,7 @@
 <body class="grid grid-cols-2 grid-rows-2">
   <aside class="h-[100dvh] gap-10 bg-emerald-300 row-span-2 flex flex-col justify-around items-center">
     <h1 class="text-2xl font-medium px-6 py-2 ">CALCULADORA INVESTIMENTOS</h1>
-    <form class="w-full flex flex-col gap-2 px-6">
+    <form id="investment-form" class="w-full flex flex-col gap-2 px-6">
       <div class="flex w-full flex gap-1 flex-col">
         <label for="starting-amount" class="font-semibold text-gray-700">Investimento inicial</label>
         <div class="flex">
@@ -35,7 +35,7 @@
         <label for="time-amount" class="font-semibold text-gray-700">Prazo</label>
         <div class="flex">
           <input class="px-2 w-2/3 text-center border-l-2 border-r-2 rounded-l-md" type="text" id="time-amount"
-            placeholder="digite o prazo">
+            placeholder="digite o prazo" required>
           <select id="time-amount-period"
             class="text-center rounded-r-md w-1/3 hover:bg-emerald-900 hover:text-slate-200" id="evaluation-period ">
             <option class="" value="monthly">&#10003; Mensal</option>
@@ -62,14 +62,14 @@
         <div class="flex">
           <input class="w-1/6 px-2 rounded-s-md ml-1 text-center" type="text" value="%" disabled>
           <input class="px-2 w-5/6 text-center  rounded-r-md" type="text" id="tax-rate"
-            placeholder="digite percentual de imposto">
+            placeholder="digite percentual de imposto" required>
 
         </div>
 
       </div>
     </form>
     <div class="flex h-12 px-6 gap-2 w-full">
-      <button id="calculate-results" class="w-1/2 bg-emerald-950 hover:bg-emerald-800 rounded-md text-slate-200">Calcular</button>
+      <button form='investment-form' id="calculate-results" class="w-1/2 bg-emerald-950 hover:bg-emerald-800 rounded-md text-slate-200">Calcular</button>
       <button id="clean" class="w-1/2 hover:bg-emerald-500 rounded-md">Limpar</button>
     </div>
   </aside>
