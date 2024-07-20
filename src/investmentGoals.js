@@ -3,7 +3,7 @@ function convertToMonthlyReturnRate(yerlyReturnRate) {
 }
 
 
-function generateReturnsArray(startingAmount = 0, timeHorizon = 0, timePeriod = 'monthly', monthlyContribution = 0, returnRate = 0, returnTimeFrame = 'monthly') {
+export function generateReturnsArray(startingAmount = 0, timeHorizon = 0, timePeriod = 'monthly', monthlyContribution = 0, returnRate = 0, returnTimeFrame = 'monthly') {
     if (!timeHorizon || !startingAmount) {
         throw new Error('Investimento inicial e prazo devem ser preenchidos com valores positivos');
     }
