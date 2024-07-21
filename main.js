@@ -7,7 +7,7 @@ const cleanButton = document.getElementById('clean');
 
 function renderProgression(evt) {
     evt.preventDefault();
-    if(document.querySelector(".error")){
+    if (document.querySelector(".error")) {
         return
     }
 
@@ -68,6 +68,11 @@ function cleanerForm() {
     document.getElementById('return-rate').value = '';
 
     document.getElementById('tax-rate').value = '';
+    const errorInputs = document.querySelectorAll(".error")
+    for (const errorInput of errorInputs) {
+        errorInput.classList.remove("error");
+        errorInput.parentElement.querySelector("p").remove();
+    }
 }
 
 form.addEventListener('submit', renderProgression)
