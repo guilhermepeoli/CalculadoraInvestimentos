@@ -7,6 +7,9 @@ const cleanButton = document.getElementById('clean');
 
 function renderProgression(evt) {
     evt.preventDefault();
+    if(document.querySelector(".error")){
+        return
+    }
 
     const startingAmount = Number(document.getElementById('starting-amount').value.replace(',', '.'));
     const additionalContribution = Number(document.getElementById('additional-contribution').value.replace(',', '.'));
@@ -30,25 +33,29 @@ function validateInput(evt) {
     const inputValue = evt.target.value.replace(',', '.')
 
     // <p id="" class="text-red-600">o valor inserido deve ser numérico e maior que zero</p>
-    if (isNaN(evt.target.value) || Number(inputValue) <= 0 ) {
-        
+    if ((isNaN(evt.target.value) || Number(inputValue) <= 0) && (!parentElement.classList.contains("error"))) {
+
         const errorTextElement = document.createElement('p');
         errorTextElement.classList.add('text-red-600');
         errorTextElement.setAttribute('id', 'teste');
         errorTextElement.innerText = 'o valor inserido deve ser numérico e maior que zero';
-        // grandParentElement[-1].tagName !='p'?grandParentElement.appendChild(errorTextElement) : '';
+
         grandParentElement.appendChild(errorTextElement);
         parentElement.classList.add('error');
     }
-
-
+    else if (parentElement.classList.contains("error") && !isNaN(evt.target.value) && Number(inputValue) > 0) {
+        parentElement.classList.remove('error');
+        grandParentElement.querySelector("p").remove();
     }
-    for (const formElement of form) {
-        if (formElement.tagName === 'INPUT' && formElement.hasAttribute('name')) {
-            formElement.addEventListener('blur', validateInput)
-        }
 
+
+}
+for (const formElement of form) {
+    if (formElement.tagName === 'INPUT' && formElement.hasAttribute('name')) {
+        formElement.addEventListener('blur', validateInput)
     }
+
+}
 
 
 
