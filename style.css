@@ -7,3 +7,11 @@
     font-family: "Montserrat", sans-serifsans-serif;
   }
 }
+
+@layer utilities{
+  .error{
+  @apply border-2;
+  @apply border-red-500;
+  @apply rounded-md;
+  }
+}
