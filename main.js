@@ -51,17 +51,33 @@ function renderProgression(evt) {
 }
 
 function validateInput(evt) {
+    let errorTextElement
     if (evt.target.value === '') {
         return
     }
+    const inputValue = evt.target.value.replace(',', '.')
     const { parentElement } = evt.target
     const grandParentElement = evt.target.parentElement.parentElement
-    const inputValue = evt.target.value.replace(',', '.')
+    if ((isNaN(evt.target.value) || Number(inputValue) < 0) && (!parentElement.classList.contains("error")) && evt.target.getAttribute('name') === 'additional-contribution') {
+        errorTextElement = document.createElement('p');
+        errorTextElement.classList.add('text-red-600');
+        errorTextElement.setAttribute('id', 'teste');
+        errorTextElement.innerText = 'o valor inserido deve ser numérico ou igual a zero';
+
+        grandParentElement.appendChild(errorTextElement);
+        parentElement.classList.add('error');
+
+        return
+    } else if (parentElement.classList.contains("error") && !isNaN(evt.target.value) && Number(inputValue) >= 0 && evt.target.getAttribute('name') === 'additional-contribution') {
+        parentElement.classList.remove('error');
+        grandParentElement.querySelector("p").remove();
+    }
+
 
     // <p id="" class="text-red-600">o valor inserido deve ser numérico e maior que zero</p>
-    if ((isNaN(evt.target.value) || Number(inputValue) <= 0) && (!parentElement.classList.contains("error"))) {
+    if ((isNaN(evt.target.value) || Number(inputValue) <= 0) && (!parentElement.classList.contains("error")) && evt.target.getAttribute('name') != 'additional-contribution') {
 
-        const errorTextElement = document.createElement('p');
+        errorTextElement = document.createElement('p');
         errorTextElement.classList.add('text-red-600');
         errorTextElement.setAttribute('id', 'teste');
         errorTextElement.innerText = 'o valor inserido deve ser numérico e maior que zero';
