@@ -1,9 +1,16 @@
 import { generateReturnsArray } from "./src/investmentGoals";
+import { Chart } from "chart.js/auto";
 
 const form = document.getElementById('investment-form')
 // const calculateButton = document.getElementById('calculate-results');
 const cleanButton = document.getElementById('clean');
 
+const finalMoneyChart = document.getElementById('final-money-distribution')
+const progressionChart = document.getElementById('progression')
+
+function formatCurrency(value) {
+    return value.toFixed(2)
+}
 
 function renderProgression(evt) {
     evt.preventDefault();
@@ -21,7 +28,26 @@ function renderProgression(evt) {
 
     const returnsArray = generateReturnsArray(startingAmount, timeAmount, timeAmountPeriod, additionalContribution, returnRate, returnRatePeriod)
 
-    console.log(returnsArray)
+    const finalInvestmenteObject = returnsArray[returnsArray.length - 1]
+    new Chart(finalMoneyChart, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                'Total Investido',
+                'Imposto',
+                'Rendimento'
+            ],
+            datasets: [{
+                data: [formatCurrency(finalInvestmenteObject.investedAmount), formatCurrency(finalInvestmenteObject.totalInterestReturns * (taxRate / 100)), formatCurrency(finalInvestmenteObject.totalInterestReturns)],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+            }]
+        },
+    })
 }
 
 function validateInput(evt) {
