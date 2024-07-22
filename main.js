@@ -7,6 +7,14 @@ const cleanButton = document.getElementById('clean');
 const finalMoneyChart = document.getElementById('final-money-distribution')
 const progressionChart = document.getElementById('progression')
 
+const columnsArray = [
+    {columnLabel: "Total investido", acessor: "investedAmount"},
+    {columnLabel: "Rendimento mensal", acessor: "interestReturns"},
+    {columnLabel: "Rendimento total", acessor:"totalinterestReturns"},
+    {columnLabel: "Mês",acessor: "month"},
+    {columnLabel: "Quantia Total", acessor:"totalAmount"}
+]
+
 let donutGraficoReferencia = {}
 let barraGraficoReferencia = {}
 
@@ -136,6 +144,7 @@ for (const formElement of form) {
     if (formElement.tagName === 'INPUT' && formElement.hasAttribute('name')) {
         formElement.addEventListener('blur', validateInput)
     }
+    console.log(formElement)
 
 }
 
@@ -169,7 +178,7 @@ function cleanerForm() {
     }
 }
 
-form.addEventListener('submit', renderProgression)
+// form.addEventListener('submit', renderProgression)
 cleanButton.addEventListener("click", cleanerForm)
 
 

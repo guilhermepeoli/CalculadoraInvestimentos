@@ -10,7 +10,7 @@
 </head>
 
 <body class="h-[100dvh] grid grid-cols-3 grid-rows-2 ">
-  <aside class="row-span-2 h-[100dvh]  gap-10 bg-emerald-300  flex flex-col justify-around items-center">
+  <aside class="row-span-2 h-full  gap-10 bg-emerald-300  flex flex-col justify-around items-center">
     <h1 class="text-2xl font-medium px-6 py-2 ">CALCULADORA INVESTIMENTOS</h1>
     <form id="investment-form" class="w-full flex flex-col gap-2 px-6">
       <div class="flex w-full flex gap-1 flex-col h-[4.25rem]">
@@ -77,15 +77,42 @@
     </div>
   </aside>
   <main class="row-span-2 col-span-2 relative">
-    <section id="chart-container" class="h-full basis-full shrink-0">
-      <div class="h-[44%] flex flex-col items-center pb-10">
-        <p>RESULTADOS</p>
+    <!-- <section id="chart-container" class="h-full basis-full shrink-0">
+      <div class="h-[36%] flex flex-col items-center pb-10">
+        <p class="font-bold text-lg">RESULTADOS</p>
         <canvas class="!h-full" id="final-money-distribution"></canvas>
       </div>
-      <div class="h-[56%] flex flex-col items-center pb-10">
-        <p>PROGRESSÃO</p>
+      <div class="h-[56%] px-5 flex flex-col items-center pb-10">
+        <p class="font-bold text-lg">PROGRESSÃO</p>
         <canvas id="progression"></canvas>
       </div>
+    </section> -->
+    <section id="table-container" class="h-full font-bold text-lg">
+      <p class="text-center">RESULTADOS MENSAIS</p>
+      <table id="results-table" class="w-full max-h-full brder border-separate">
+        <thead>
+          <th>Mês</th>
+          <th>Juros</th>
+          <th>Total Investido</th>
+        </thead>
+        <tbody class="font-medium">
+          <tr>
+            <td class="text-center">0</td>
+            <td class="text-center">0</td>
+            <td class="text-center">11000</td>
+          </tr>
+          <tr>
+            <td class="text-center">1</td>
+            <td class="text-center">10</td>
+            <td class="text-center">12000</td>
+          </tr>
+          <tr>
+            <td class="text-center">2</td>
+            <td class="text-center">23</td>
+            <td class="text-center">13000</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
   </main>
   <script type="module" src="./main.js"></script>
