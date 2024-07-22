@@ -22,6 +22,7 @@ function createTableHeader(tableReference, columnsArray) {
         tableReference.appendChild(thead)
         return thead
     }
+    tableReference.innerHTML = ''
     const tableHeaderReference = tableReference.querySelector('thead') ?? createTheadElement(tableReference)
 
     const headerRow = document.createElement('tr');
