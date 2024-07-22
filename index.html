@@ -77,43 +77,27 @@
     </div>
   </aside>
   <main class="row-span-2 col-span-2 relative">
-    <!-- <section id="chart-container" class="h-full basis-full shrink-0">
-      <div class="h-[36%] flex flex-col items-center pb-10">
-        <p class="font-bold text-lg">RESULTADOS</p>
-        <canvas class="!h-full" id="final-money-distribution"></canvas>
-      </div>
-      <div class="h-[56%] px-5 flex flex-col items-center pb-10">
-        <p class="font-bold text-lg">PROGRESSÃO</p>
-        <canvas id="progression"></canvas>
-      </div>
-    </section> -->
-    <section id="table-container" class="h-full font-bold text-lg">
-      <p class="text-center">RESULTADOS MENSAIS</p>
-      <table id="results-table" class="w-full max-h-full brder border-separate">
-        <thead>
-          <th>Mês</th>
-          <th>Juros</th>
-          <th>Total Investido</th>
-        </thead>
-        <tbody class="font-medium">
-          <tr>
-            <td class="text-center">0</td>
-            <td class="text-center">0</td>
-            <td class="text-center">11000</td>
-          </tr>
-          <tr>
-            <td class="text-center">1</td>
-            <td class="text-center">10</td>
-            <td class="text-center">12000</td>
-          </tr>
-          <tr>
-            <td class="text-center">2</td>
-            <td class="text-center">23</td>
-            <td class="text-center">13000</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+    <button id="slide-arrow-previous" class="absolute top-0 bottom-0 text-3xl rotate-180  cursor-pointer opacity-50 w-8 focus:opacity-100">&#10095;</button>
+    
+    <button  id="slide-arrow-next" class="absolute top-0 bottom-0 right-2  text-3xl cursor-pointer opacity-50 w-8  hover:opacity-100 focus:opacity-100">&#10095;</button>
+
+    <div id="carousel" class="h-full w-full flex overflow-x-auto scroll-smooth">
+      <section id="chart-container" class="h-full basis-full shrink-0 w-full">
+        <div class="h-[36%] flex flex-col items-center pb-10">
+          <p class="font-bold text-lg">RESULTADOS</p>
+          <canvas class="!h-full" id="final-money-distribution"></canvas>
+        </div>
+        <div class="h-[56%] px-5 flex flex-col items-center pb-10">
+          <p class="font-bold text-lg">PROGRESSÃO</p>
+          <canvas id="progression"></canvas>
+        </div>
+      </section>
+      <section id="table-container" class="h-full w-full font-bold text-lg overflow-y-auto shrink-0">
+        <p class="text-center">RESULTADOS MENSAIS</p>
+        <table id="results-table" class="w-full max-h-full border border-separate">
+        </table>
+      </section>
+    </div>
   </main>
   <script type="module" src="./main.js"></script>
 </body>

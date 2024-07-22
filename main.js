@@ -1,6 +1,6 @@
 import { generateReturnsArray } from "./src/investmentGoals";
 import { Chart } from "chart.js/auto";
-
+import { createTable } from "./src/table";
 const form = document.getElementById('investment-form')
 const cleanButton = document.getElementById('clean');
 
@@ -8,16 +8,19 @@ const finalMoneyChart = document.getElementById('final-money-distribution')
 const progressionChart = document.getElementById('progression')
 
 const columnsArray = [
-    {columnLabel: "Total investido", acessor: "investedAmount"},
-    {columnLabel: "Rendimento mensal", acessor: "interestReturns"},
-    {columnLabel: "Rendimento total", acessor:"totalinterestReturns"},
-    {columnLabel: "Mês",acessor: "month"},
-    {columnLabel: "Quantia Total", acessor:"totalAmount"}
+    { columnLabel: "Mês", acessor: "month" },
+    { columnLabel: "Total investido", acessor: "investedAmount", format: numberInfo => formatCurrency(numberInfo) },
+    { columnLabel: "Rendimento mensal", acessor: "interestReturns", format: numberInfo => formatCurrency(numberInfo) },
+    { columnLabel: "Rendimento total", acessor: "totalInterestReturns", format: numberInfo => formatCurrency(numberInfo) },
+    { columnLabel: "Quantia Total", acessor: "totalAmount", format: numberInfo => formatCurrencyToTable(numberInfo) }
 ]
 
 let donutGraficoReferencia = {}
 let barraGraficoReferencia = {}
 
+function formatCurrencyToTable(value) {
+    return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+}
 function formatCurrency(value) {
     return value.toFixed(2)
 }
@@ -63,39 +66,41 @@ function renderProgression(evt) {
 
     barraGraficoReferencia = new Chart(progressionChart, {
         type: 'bar',
-  data: {
-    labels: returnsArray.map(objeto => objeto.month),
-    
-    datasets: [
-      {
-        label: 'Total investido',
-        data: returnsArray.map(objeto => formatCurrency(objeto.investedAmount)),
-        backgroundColor: "rgb(255, 99, 132)",
-        stack: 'Stack 0',
-      },
-      {
-        label: 'Retorno de investimento',
-        data: returnsArray.map(objeto => formatCurrency(objeto.interestReturns)),
-        backgroundColor: "rgb(255, 205, 86)",
-        stack: 'Stack 0',
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    interaction: {
-      intersect: false,
-    },
-    scales: {
-      x: {
-        stacked: true,
-      },
-      y: {
-        stacked: true
-      }
-    }
-  }
+        data: {
+            labels: returnsArray.map(objeto => objeto.month),
+
+            datasets: [
+                {
+                    label: 'Total investido',
+                    data: returnsArray.map(objeto => formatCurrency(objeto.investedAmount)),
+                    backgroundColor: "rgb(255, 99, 132)",
+                    stack: 'Stack 0',
+                },
+                {
+                    label: 'Retorno de investimento',
+                    data: returnsArray.map(objeto => formatCurrency(objeto.interestReturns)),
+                    backgroundColor: "rgb(255, 205, 86)",
+                    stack: 'Stack 0',
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            interaction: {
+                intersect: false,
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            }
+        }
     })
+
+    createTable(columnsArray, returnsArray, 'results-table')
 }
 
 function validateInput(evt) {
@@ -144,20 +149,19 @@ for (const formElement of form) {
     if (formElement.tagName === 'INPUT' && formElement.hasAttribute('name')) {
         formElement.addEventListener('blur', validateInput)
     }
-    console.log(formElement)
 
 }
 
-function isObjectEmpty(obj){
+function isObjectEmpty(obj) {
     return Object.keys(obj).length === 0
 }
 
-function resetChats(){
-if (!isObjectEmpty(donutGraficoReferencia) && !isObjectEmpty(barraGraficoReferencia)){
-    donutGraficoReferencia.destroy();
-    barraGraficoReferencia.destroy();
+function resetChats() {
+    if (!isObjectEmpty(donutGraficoReferencia) && !isObjectEmpty(barraGraficoReferencia)) {
+        donutGraficoReferencia.destroy();
+        barraGraficoReferencia.destroy();
 
-}
+    }
 }
 
 function cleanerForm() {
@@ -167,7 +171,7 @@ function cleanerForm() {
 
     document.getElementById('return-rate').value = '';
 
-    
+
 
     document.getElementById('tax-rate').value = '';
     resetChats();
@@ -178,7 +182,20 @@ function cleanerForm() {
     }
 }
 
-// form.addEventListener('submit', renderProgression)
+const mainEl  = document.querySelector('main')
+const carouselEl = document.getElementById('carousel')
+const nextButton = document.getElementById('slide-arrow-next')
+const previousButton = document.getElementById('slide-arrow-previous')
+
+nextButton.addEventListener('click', ()=>{
+    carouselEl.scrollLeft += mainEl.clientWidth;
+})
+
+previousButton.addEventListener('click', ()=>{
+    carouselEl.scrollLeft -= mainEl.clientWidth;
+})
+
+form.addEventListener('submit', renderProgression)
 cleanButton.addEventListener("click", cleanerForm)
 
 
