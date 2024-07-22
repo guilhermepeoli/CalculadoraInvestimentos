@@ -2,11 +2,13 @@ import { generateReturnsArray } from "./src/investmentGoals";
 import { Chart } from "chart.js/auto";
 
 const form = document.getElementById('investment-form')
-// const calculateButton = document.getElementById('calculate-results');
 const cleanButton = document.getElementById('clean');
 
 const finalMoneyChart = document.getElementById('final-money-distribution')
 const progressionChart = document.getElementById('progression')
+
+let donutGraficoReferencia = {}
+let barraGraficoReferencia = {}
 
 function formatCurrency(value) {
     return value.toFixed(2)
@@ -17,6 +19,8 @@ function renderProgression(evt) {
     if (document.querySelector(".error")) {
         return
     }
+
+    resetChats();
 
     const startingAmount = Number(document.getElementById('starting-amount').value.replace(',', '.'));
     const additionalContribution = Number(document.getElementById('additional-contribution').value.replace(',', '.'));
@@ -29,7 +33,7 @@ function renderProgression(evt) {
     const returnsArray = generateReturnsArray(startingAmount, timeAmount, timeAmountPeriod, additionalContribution, returnRate, returnRatePeriod)
 
     const finalInvestmenteObject = returnsArray[returnsArray.length - 1]
-    new Chart(finalMoneyChart, {
+    donutGraficoReferencia = new Chart(finalMoneyChart, {
         type: 'doughnut',
         data: {
             labels: [
@@ -47,6 +51,42 @@ function renderProgression(evt) {
                 hoverOffset: 4
             }]
         },
+    })
+
+    barraGraficoReferencia = new Chart(progressionChart, {
+        type: 'bar',
+  data: {
+    labels: returnsArray.map(objeto => objeto.month),
+    
+    datasets: [
+      {
+        label: 'Total investido',
+        data: returnsArray.map(objeto => formatCurrency(objeto.investedAmount)),
+        backgroundColor: "rgb(255, 99, 132)",
+        stack: 'Stack 0',
+      },
+      {
+        label: 'Retorno de investimento',
+        data: returnsArray.map(objeto => formatCurrency(objeto.interestReturns)),
+        backgroundColor: "rgb(255, 205, 86)",
+        stack: 'Stack 0',
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    interaction: {
+      intersect: false,
+    },
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        stacked: true
+      }
+    }
+  }
     })
 }
 
@@ -99,8 +139,17 @@ for (const formElement of form) {
 
 }
 
+function isObjectEmpty(obj){
+    return Object.keys(obj).length === 0
+}
 
+function resetChats(){
+if (!isObjectEmpty(donutGraficoReferencia) && !isObjectEmpty(barraGraficoReferencia)){
+    donutGraficoReferencia.destroy();
+    barraGraficoReferencia.destroy();
 
+}
+}
 
 function cleanerForm() {
     document.getElementById('starting-amount').value = '';
@@ -109,7 +158,10 @@ function cleanerForm() {
 
     document.getElementById('return-rate').value = '';
 
+    
+
     document.getElementById('tax-rate').value = '';
+    resetChats();
     const errorInputs = document.querySelectorAll(".error")
     for (const errorInput of errorInputs) {
         errorInput.classList.remove("error");
