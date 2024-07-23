@@ -9,9 +9,9 @@ const progressionChart = document.getElementById('progression')
 
 const columnsArray = [
     { columnLabel: "Mês", acessor: "month" },
-    { columnLabel: "Total investido", acessor: "investedAmount", format: numberInfo => formatCurrency(numberInfo) },
-    { columnLabel: "Rendimento mensal", acessor: "interestReturns", format: numberInfo => formatCurrency(numberInfo) },
-    { columnLabel: "Rendimento total", acessor: "totalInterestReturns", format: numberInfo => formatCurrency(numberInfo) },
+    { columnLabel: "Total investido", acessor: "investedAmount", format: numberInfo => formatCurrencyToTable(numberInfo) },
+    { columnLabel: "Rendimento mensal", acessor: "interestReturns", format: numberInfo => formatCurrencyToTable(numberInfo) },
+    { columnLabel: "Rendimento total", acessor: "totalInterestReturns", format: numberInfo => formatCurrencyToTable(numberInfo) },
     { columnLabel: "Quantia Total", acessor: "totalAmount", format: numberInfo => formatCurrencyToTable(numberInfo) }
 ]
 
