@@ -174,6 +174,7 @@ function cleanerForm() {
 
 
     document.getElementById('tax-rate').value = '';
+    document.getElementById('results-table').innerHTML = ''
     resetChats();
     const errorInputs = document.querySelectorAll(".error")
     for (const errorInput of errorInputs) {
@@ -182,16 +183,16 @@ function cleanerForm() {
     }
 }
 
-const mainEl  = document.querySelector('main')
+const mainEl = document.querySelector('main')
 const carouselEl = document.getElementById('carousel')
 const nextButton = document.getElementById('slide-arrow-next')
 const previousButton = document.getElementById('slide-arrow-previous')
 
-nextButton.addEventListener('click', ()=>{
+nextButton.addEventListener('click', () => {
     carouselEl.scrollLeft += mainEl.clientWidth;
 })
 
-previousButton.addEventListener('click', ()=>{
+previousButton.addEventListener('click', () => {
     carouselEl.scrollLeft -= mainEl.clientWidth;
 })
 
